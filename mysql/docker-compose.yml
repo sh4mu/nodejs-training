@@ -1,0 +1,18 @@
+services:
+   db:
+    image: mariadb:10.4
+    container_name: mysql
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    environment:
+      - MYSQL_USER=testpass
+      - MYSQL_PASSWORD=testpass
+      - MYSQL_ROOT_PASSWORD=testpass
+    ports:
+      - 3306:3306
+    volumes:
+      - /home/jcoucelo/Training/nodejs/mysql/db:/var/lib/mysql
+#      - /home/jcoucelo/Training/nodejs/mysql/my.cnf:/etc/mysql/my.cnf
+
