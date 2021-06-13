@@ -93,10 +93,34 @@ function deleteDepartment(req, res) {
         .catch(error => res.status(500).json(error));
 }
 
+function getDepartmentEmployees(req, res) {
+    // select e.name, d.name from my_db.employees e INNER JOIN my_db.department d on e.department = d.id AND d.id = 1;
+
+    const { knex } = req.app.locals;
+    let { id } = req.params;
+    id = +id;
+
+    knex
+        .select('e.name', 'e.address', 'e.email', 'e.salary')
+        .from('employees AS e')
+        .innerJoin('department AS d', function() {
+            this
+                .on('e.department', '=', 'd.id')
+                .andOn('d.id', '=', id)
+        }).then(data => {
+            if(data.length > 0) {
+                return res.status(200).json(data)
+            }
+            return res.status(404).json(`Department ${id} does not exist`);
+        })
+        .catch(error => res.status(500).json(error));
+}
+
 module.exports = {
     listAllDepartments,
     listOneDepartment,
     createDepartment,
     updateDepartment,
-    deleteDepartment
+    deleteDepartment,
+    getDepartmentEmployees
 };

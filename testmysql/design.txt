@@ -9,3 +9,4 @@
 * POST create a department
 * PATCH update a department
 * DELETE a department
+* GET list of all employees in a department

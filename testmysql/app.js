@@ -22,6 +22,7 @@ router.delete('/employees/:id', jsonParser, routes.employees.deleteEmployee);
 
 router.get('/departments/', routes.department.listAllDepartments);
 router.get('/departments/:id', routes.department.listOneDepartment);
+router.get('/departments/:id/employees', routes.department.getDepartmentEmployees);
 router.post('/departments/', jsonParser, routes.department.createDepartment);
 router.patch('/departments/:id', jsonParser, routes.department.updateDepartment);
 router.delete('/departments/:id', jsonParser, routes.department.deleteDepartment);
