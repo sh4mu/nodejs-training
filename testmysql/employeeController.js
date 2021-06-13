@@ -52,7 +52,7 @@ function listOneEmployee(req, res) {
         .where({ id: `${id}` })
         .then(data => {
             if(data.length > 0) {
-                res.status(200).json(data)
+                res.status(200).json(data[0])
             }
             else {
                 res.status(404).json(`Employee ${id} not found`)
