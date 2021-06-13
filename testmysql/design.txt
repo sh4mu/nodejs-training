@@ -1,0 +1,11 @@
+* GET list all employees
+* GET list info about one employee
+* POST create an employee
+* PATCH update an employee
+* DELETE remove an employee
+
+* GET list all departments
+* GET list info about one department
+* POST create a department
+* PATCH update a department
+* DELETE a department
