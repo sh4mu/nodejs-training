@@ -2,11 +2,31 @@ const e = require("express");
 
 function listAllEmployees(req, res) {
     const { knex } = req.app.locals;
-    knex
-        .select('name', 'address', 'email', 'hired', 'salary', 'bonus', 'photo', 'department')
-        .from('employees')
-        .then(data => res.status(200).json(data))
-        .catch(error => res.status(500).json(error));
+    const { orderBy } = req.query;
+
+    // GET http://localhost:3000/api/employees/?orderBy=name:ASC HTTP/1.1
+    if(orderBy) {
+        const regex = /(.*)(:)(ASC|DESC)/ig;
+        if(regex.test(orderBy)) {
+            const [ column, order ] = orderBy.split(':');
+            knex
+            .select('name', 'address', 'email', 'hired', 'salary', 'bonus', 'photo', 'department')
+            .from('employees')
+            .orderBy(column, order)
+            .then(data => res.status(200).json(data))
+            .catch(error => res.status(500).json(error));
+        }
+        else {
+            return res.data(400).json('If using filter please use [field]:ASC|DESC');
+        }
+    }
+    else {
+        knex
+            .select('name', 'address', 'email', 'hired', 'salary', 'bonus', 'photo', 'department')
+            .from('employees')
+            .then(data => res.status(200).json(data))
+            .catch(error => res.status(500).json(error));
+    }
 
 
     /* // Mysql native drive
