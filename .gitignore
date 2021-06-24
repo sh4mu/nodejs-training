@@ -1,2 +1,4 @@
 */node_modules
 *package-lock.json
+**/mysql/db
+testmongodb/.~lock.MOCK_DATA.csv#
